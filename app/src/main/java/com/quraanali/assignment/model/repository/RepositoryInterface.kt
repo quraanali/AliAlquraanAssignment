@@ -1,0 +1,1 @@
+package com.quraanali.assignment.model.repositoryimport androidx.lifecycle.LiveDataimport com.quraanali.assignment.model.models.Articlesinterface RepositoryInterface {    fun getArticles(): LiveData<Articles>?}

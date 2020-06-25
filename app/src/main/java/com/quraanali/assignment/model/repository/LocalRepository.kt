@@ -1,0 +1,1 @@
+package com.quraanali.assignment.model.repositoryimport androidx.lifecycle.LiveDataimport com.quraanali.assignment.model.models.Articlesclass LocalRepository : RepositoryInterface {    override fun getArticles(): LiveData<Articles>? {        return null    }}
