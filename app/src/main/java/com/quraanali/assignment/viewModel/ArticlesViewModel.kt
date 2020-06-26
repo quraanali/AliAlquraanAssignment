@@ -1,41 +1,45 @@
 package com.quraanali.assignment.viewModel
 
-import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.quraanali.assignment.model.models.Articles
 import com.quraanali.assignment.model.repository.RepositoryManager
-import com.quraanali.assignment.util.MyEnum
+import com.quraanali.mvvm.utils.Resource
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
+class MainViewModel(private val mainRepository: RepositoryManager) : ViewModel() {
 
-class ArticlesViewModel(
-    ctx: Application
-) : BaseViewModel(ctx) {
+    private val articles = MutableLiveData<Resource<Articles>>()
+    private val compositeDisposable = CompositeDisposable()
 
-//    val articles: LiveData<MutableList<Articles>> = liveData {
-//        val result = categoryRepository.getCategories()
-//        when (result) {
-//            is RepoSuccessResponse -> {
-//                emit(result.body.data)
-//            }
-//
-//            is RepoEmptyResponse -> {
-//            }
-//
-//            is RepoErrorResponse -> {
-//                toast.postValue(result.errorMessage)
-//            }
-//        }
-//    }
-
-
-    private var mResponse: LiveData<Articles>? = null
-    private var mRepository = RepositoryManager(MyEnum.REMOTE.value)
-
-    fun getArticles(): LiveData<Articles> {
-        mResponse = mRepository.getArticles()
-
-        return mResponse!!
+    init {
+        fetchArticles()
     }
 
+    private fun fetchArticles() {
+        articles.postValue(Resource.loading(null))
+        compositeDisposable.add(
+            mainRepository.getArticles()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ articlesList ->
+                    articles.postValue(Resource.success(articlesList))
+                }, {
+                    articles.postValue(Resource.error("Something Went Wrong", null))
+                })
+        )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.dispose()
+    }
+
+    fun getArticles(): LiveData<Resource<Articles>> {
+        return articles
+    }
 
 }
