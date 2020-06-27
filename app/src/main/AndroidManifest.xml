@@ -18,7 +18,7 @@
             android:name="com.google.android.actions"
             android:resource="@xml/network_security_config" />
 
-        <activity android:name=".view.activity.MainActivity">
+        <activity android:name=".view.activity.ArticlesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,1 +1,0 @@
-package com.quraanali.assignment.utilenum class MyEnum(val value: Int) {    REMOTE(1),    LOCAL(2),}

@@ -14,16 +14,16 @@ import com.quraanali.assignment.model.models.Articles
 import com.quraanali.assignment.model.repository.remote.ApiHelper
 import com.quraanali.assignment.model.repository.remote.ApiServiceImpl
 import com.quraanali.assignment.util.ViewModelFactory
-import com.quraanali.assignment.view.adapter.MainAdapter
+import com.quraanali.assignment.view.adapter.ArticlesAdapter
 import com.quraanali.assignment.viewModel.MainViewModel
 import com.quraanali.mvvm.utils.Status
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class ArticlesActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
-    private lateinit var adapter: MainAdapter
+    private lateinit var adapter: ArticlesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupUI() {
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = MainAdapter(arrayListOf())
+        adapter = ArticlesAdapter(arrayListOf())
         recyclerView.addItemDecoration(
             DividerItemDecoration(
                 recyclerView.context,

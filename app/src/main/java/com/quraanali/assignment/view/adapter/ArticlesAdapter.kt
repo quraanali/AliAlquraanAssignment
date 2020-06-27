@@ -10,17 +10,18 @@ import com.quraanali.assignment.R
 import com.quraanali.assignment.model.models.Articles
 import kotlinx.android.synthetic.main.item_layout.view.*
 
-class MainAdapter(
+class ArticlesAdapter(
     private val articles: ArrayList<Articles.Result>
-) : RecyclerView.Adapter<MainAdapter.DataViewHolder>() {
+) : RecyclerView.Adapter<ArticlesAdapter.DataViewHolder>() {
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(articles: Articles.Result) {
-            itemView.textViewUserName.text = articles.title
-            itemView.textViewUserEmail.text = articles.source
-            Glide.with(itemView.imageViewAvatar.context)
-                .load(articles.etaId)
-                .into(itemView.imageViewAvatar)
+            itemView.textViewArticleTitle.text = articles.title
+            itemView.textViewArticleByline.text = articles.byline
+            itemView.textViewArticleDate.text = articles.updated
+//            Glide.with(itemView.imageViewAvatar.context)
+//                .load(articles.etaId)
+//                .into(itemView.imageViewAvatar)
         }
     }
 
